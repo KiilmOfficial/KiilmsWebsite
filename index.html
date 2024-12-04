@@ -12,37 +12,12 @@
             height: 100vh;
             color: white;
             overflow: hidden;
-            background: url('https://media.giphy.com/media/l3q2RgN7WUjeUUXm0/giphy.gif') no-repeat center center fixed; /* Correct GIF link */
+            background: url('https://media.giphy.com/media/l3q2RgN7WUjeUUXm0/giphy.gif') no-repeat center center fixed;
             background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-
-        /* Search bar container */
-        .search-container {
-            text-align: center;
-            color: white;
-            margin-top: 80px;
-            z-index: 1;
-        }
-
-        /* Search bar input */
-        .form__input {
-            font-family: Poppins, sans-serif;
-            font-size: 20px;
-            padding: 10px;
-            width: 300px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            border-radius: 5px;
-            margin-right: 10px;
-        }
-
-        .form__input::placeholder {
-            color: white;
         }
 
         /* Taskbar style */
@@ -85,84 +60,91 @@
             text-align: left;
         }
 
-        /* Hamburger Menu Style */
+        /* Chatbox menu button style */
         .menu-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #444;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1100;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu-btn:hover {
+            background-color: #666;
+        }
+
+        /* Chatbox container */
+        .chatbox-container {
             display: none;
             position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1100;
-            cursor: pointer;
-        }
-
-        .menu-btn div {
-            width: 35px;
-            height: 5px;
-            background-color: white;
-            margin: 6px 0;
-            transition: 0.4s;
-        }
-
-        /* Side menu bar */
-        .side-menu {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background-color: #333;
-            transition: 0.3s;
-            padding-top: 60px;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             z-index: 1000;
         }
 
-        .side-menu a {
-            padding: 15px;
-            text-decoration: none;
-            font-size: 22px;
+        /* Chatbox messages */
+        .chat-messages {
+            height: 300px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #444;
+            padding-right: 10px;
+        }
+
+        .chat-messages p {
+            margin: 5px 0;
+            padding: 5px;
+            background-color: #333;
+            border-radius: 5px;
+        }
+
+        /* Message input */
+        .message-input {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
             color: white;
-            display: block;
-            transition: 0.3s;
+            border-radius: 5px;
+            font-size: 16px;
         }
 
-        .side-menu a:hover {
-            background-color: #575757;
+        .message-input::placeholder {
+            color: white;
         }
 
-        /* Open menu */
-        .side-menu.open {
-            left: 0;
+        /* Send button */
+        .send-btn {
+            background-color: #444;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
         }
 
-        .menu-btn.open div:nth-child(1) {
-            transform: rotate(-45deg) translate(-5px, 6px);
-        }
-
-        .menu-btn.open div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-btn.open div:nth-child(3) {
-            transform: rotate(45deg) translate(-5px, -6px);
-        }
-
-        /* For the menu button and side menu to work */
-        .content {
-            margin-left: 0;
+        .send-btn:hover {
+            background-color: #666;
         }
     </style>
 </head>
 <body>
-
-<!-- Search Bar (Proxy Unblocker) -->
-<div class="search-container">
-    <div class="themesExcluded">
-        <i class="bi bi-search search" id="search"></i>
-        <form method="POST" id="uform" autocomplete="off" class="themesExcluded">
-            <input type="text" name="url" class="form__input proxybar themesExcluded" id="name" placeholder="Type URL or search query">
-        </form>
-    </div>
-</div>
 
 <!-- Taskbar -->
 <div class="taskbar">
@@ -181,14 +163,42 @@
     <p>© OfficialKiilm</p>
 </footer>
 
-<script>
-    // Function to toggle the side menu visibility
-    function toggleMenu() {
-        var menu = document.getElementById("sideMenu");
-        var menuBtn = document.querySelector(".menu-btn");
+<!-- Menu Button for Chatbox -->
+<div class="menu-btn" onclick="toggleChatbox()">☰</div>
 
-        menu.classList.toggle("open");
-        menuBtn.classList.toggle("open");
+<!-- Chatbox Container -->
+<div class="chatbox-container" id="chatbox">
+    <div class="chat-messages" id="messages">
+        <!-- Messages will appear here -->
+    </div>
+    <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="3"></textarea>
+    <button class="send-btn" onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+    // Toggle the chatbox visibility
+    function toggleChatbox() {
+        var chatbox = document.getElementById('chatbox');
+        chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Send message and display it in the chat
+    function sendMessage() {
+        var messageInput = document.getElementById('messageInput');
+        var messageText = messageInput.value.trim();
+
+        if (messageText) {
+            var messageContainer = document.getElementById('messages');
+            var message = document.createElement('p');
+            message.textContent = messageText;
+            messageContainer.appendChild(message);
+
+            // Scroll to the bottom of the chat
+            messageContainer.scrollTop = messageContainer.scrollHeight;
+
+            // Clear the input field
+            messageInput.value = '';
+        }
     }
 </script>
 
