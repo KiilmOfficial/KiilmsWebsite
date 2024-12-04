@@ -3,39 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vercel Deployment Example</title>
+    <title>Taskbar Example</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #0000FF, #00FF00); /* Blue to Lime gradient */
             height: 100vh;
+            color: white;
         }
-        .container {
+
+        /* Taskbar style */
+        .taskbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #333;
+            height: 50px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        /* Taskbar buttons */
+        .taskbar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: white;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .taskbar button img {
+            height: 30px;
+            width: 30px;
+            margin-right: 8px;
+        }
+
+        .taskbar button:hover {
+            background-color: #444;
+        }
+
+        /* Page content style */
+        .content {
+            margin-top: 60px; /* To avoid content being hidden behind the taskbar */
             text-align: center;
-            background-color: white;
-            padding: 50px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
-        h1 {
+
+        .content h1 {
             color: #333;
         }
-        p {
-            color: #555;
+
+        /* Footer style */
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: #333;
+            padding: 10px;
+            color: white;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Welcome to Vercel Deployment!</h1>
-    <p>Your HTML page is now live on Vercel.</p>
+<!-- Taskbar -->
+<div class="taskbar">
+    <!-- Discord -->
+    <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Discord_logo_2023.svg/2048px-Discord_logo_2023.svg.png" alt="Discord Logo">
+        Discord
+    </button>
+
+    <!-- Game 1 (example) -->
+    <button onclick="window.open('https://www.fortnite.com', '_blank')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Fortnite_logo_2018.svg" alt="Fortnite Logo">
+        Fortnite
+    </button>
+
+    <!-- Game 2 (example) -->
+    <button onclick="window.open('https://www.leagueoflegends.com', '_blank')">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/League_of_Legends_logo_2019.svg" alt="League of Legends Logo">
+        League of Legends
+    </button>
 </div>
+
+<!-- Main Content -->
+<div class="content">
+    <h1>Welcome to the Taskbar Demo!</h1>
+    <p>Click the buttons on the taskbar to visit the respective websites.</p>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>© OfficialKiilm</p>
+</footer>
 
 </body>
 </html>
