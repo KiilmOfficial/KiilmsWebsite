@@ -13,14 +13,14 @@
             color: white;
             overflow: hidden;
             background: linear-gradient(to right, #00008B, #87CEFA); /* Initial gradient */
-            animation: wave 6s ease-in-out infinite; /* Smooth wave animation */
+            animation: wave 10s ease-in-out infinite; /* Smoother wave animation */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
 
-        /* Wave-like gradient animation */
+        /* Smoother gradient animation */
         @keyframes wave {
             0% {
                 background: linear-gradient(to right, #00008B, #87CEFA);
@@ -193,10 +193,8 @@
         <i class="bi bi-search search" id="search"></i>
         <form method="POST" id="uform" autocomplete="off" class="themesExcluded">
             <input type="text" name="url" class="form__input proxybar themesExcluded" id="name" placeholder="Type URL or search query">
-            <p class="splashText themesExcluded" id="placeholder">About:Blank Cloak is highly recommended</p>
         </form>
     </div>
-    <p id="time" class="clock footer">2:57:03</p>
 </div>
 
 <!-- Taskbar -->
