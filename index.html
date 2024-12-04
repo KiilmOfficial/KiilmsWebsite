@@ -12,25 +12,14 @@
             height: 100vh;
             color: white;
             overflow: hidden;
-            background: linear-gradient(to top, #00008B, #87CEFA); /* Initial gradient */
-            animation: smooth-gradient 8s ease-in-out infinite; /* Smooth gradient animation */
+            background-image: url('https://path-to-your-rain-gif.gif'); /* Replace with your GIF URL */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-
-        /* Smooth Gradient Animation */
-        @keyframes smooth-gradient {
-            0% {
-                background: linear-gradient(to top, #00008B 50%, #87CEFA 50%);
-            }
-            50% {
-                background: linear-gradient(to top, #00008B 0%, #87CEFA 100%);
-            }
-            100% {
-                background: linear-gradient(to top, #00008B 50%, #87CEFA 50%);
-            }
         }
 
         /* Search bar container */
@@ -64,7 +53,7 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: #333;
+            background-color: rgba(0, 0, 0, 0.7);
             height: 50px;
             display: flex;
             justify-content: space-around;
