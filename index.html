@@ -12,43 +12,12 @@
             height: 100vh;
             color: white;
             overflow: hidden;
-            background-image: url('https://giphy.com/gifs/gif-artist-glas-2017-ericaofanderson-l3q2RgN7WUjeUUXm0'); /* Replace with your GIF URL */
+            background: url('https://cdn.pixabay.com/photo/2018/05/29/12/46/galaxy-3447119_960_720.jpg') no-repeat center center fixed; /* Example Galaxy Image */
             background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-
-        /* Navigation Bar above Discord, Github, and YouTube */
-        .nav-bar {
-            display: flex;
-            justify-content: center;
-            background-color: #333;
-            width: 100%;
-            height: 40px;
-        }
-
-        .nav-tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            color: white;
-            cursor: pointer;
-            font-size: 18px;
-            transition: background-color 0.3s;
-        }
-
-        .nav-tab:hover {
-            background-color: #555;
-        }
-
-        /* Highlight active tab */
-        .active-tab {
-            background-color: #444;
-            font-weight: bold;
         }
 
         /* Search bar container */
@@ -184,26 +153,6 @@
     </style>
 </head>
 <body>
-
-<!-- Navigation Bar (Menu and Games Tabs) -->
-<div class="nav-bar">
-    <div class="nav-tab active-tab">Menu</div> <!-- Highlighted because we're on the Menu tab -->
-    <div class="nav-tab">Games</div> <!-- Not highlighted -->
-</div>
-
-<!-- Hamburger Menu Button -->
-<div class="menu-btn" onclick="toggleMenu()">
-    <div></div>
-    <div></div>
-    <div></div>
-</div>
-
-<!-- Side Menu -->
-<div id="sideMenu" class="side-menu">
-    <a href="https://discord.gg/cAZwd8UY" target="_blank">Discord</a>
-    <a href="https://github.com/KiilmOfficial" target="_blank">Github</a>
-    <a href="https://www.youtube.com/@KiilmsYoutube" target="_blank">YouTube</a>
-</div>
 
 <!-- Search Bar (Proxy Unblocker) -->
 <div class="search-container">
