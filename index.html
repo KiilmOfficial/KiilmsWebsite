@@ -9,9 +9,44 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to bottom, #0000FF, #00FF00); /* Blue to Lime gradient */
             height: 100vh;
             color: white;
+            overflow: hidden;
+        }
+
+        /* Background rain animation */
+        .rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .rain .drop {
+            position: absolute;
+            width: 2px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            animation: fall 0.5s linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Create multiple rain drops */
+        .rain .drop:nth-child(odd) {
+            animation-duration: 0.8s;
+        }
+
+        .rain .drop:nth-child(even) {
+            animation-duration: 0.6s;
         }
 
         /* Taskbar style */
@@ -133,6 +168,20 @@
 </head>
 <body>
 
+<!-- Rain Animation -->
+<div class="rain">
+    <!-- Dynamically generate raindrops -->
+    <div class="drop" style="left: 10%"></div>
+    <div class="drop" style="left: 20%"></div>
+    <div class="drop" style="left: 30%"></div>
+    <div class="drop" style="left: 40%"></div>
+    <div class="drop" style="left: 50%"></div>
+    <div class="drop" style="left: 60%"></div>
+    <div class="drop" style="left: 70%"></div>
+    <div class="drop" style="left: 80%"></div>
+    <div class="drop" style="left: 90%"></div>
+</div>
+
 <!-- Hamburger Menu Button -->
 <div class="menu-btn" onclick="toggleMenu()">
     <div></div>
@@ -143,8 +192,8 @@
 <!-- Side Menu -->
 <div id="sideMenu" class="side-menu">
     <a href="https://discord.gg/cAZwd8UY" target="_blank">Discord</a>
-    <a href="https://www.fortnite.com" target="_blank">Fortnite</a>
-    <a href="https://www.leagueoflegends.com" target="_blank">League of Legends</a>
+    <a href="https://github.com/KiilmOfficial" target="_blank">Github</a>
+    <a href="https://www.youtube.com/@KiilmsYoutube" target="_blank">YouTube</a>
 </div>
 
 <!-- Taskbar -->
@@ -152,11 +201,11 @@
     <!-- Discord -->
     <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">Discord</button>
 
-    <!-- Game 1 (example) -->
-    <button onclick="window.open('https://www.fortnite.com', '_blank')">Fortnite</button>
+    <!-- Github -->
+    <button onclick="window.open('https://github.com/KiilmOfficial', '_blank')">Github</button>
 
-    <!-- Game 2 (example) -->
-    <button onclick="window.open('https://www.leagueoflegends.com', '_blank')">League of Legends</button>
+    <!-- YouTube -->
+    <button onclick="window.open('https://www.youtube.com/@KiilmsYoutube', '_blank')">YouTube</button>
 </div>
 
 <!-- Main Content -->
