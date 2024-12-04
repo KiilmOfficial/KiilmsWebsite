@@ -60,152 +60,121 @@
             text-align: left;
         }
 
-        /* Menu button style */
-        .menu-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #333;
-            color: white;
-            padding: 10px;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* Services menu style */
-        .services-menu {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            display: none;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .services-menu button {
-            background: none;
-            color: white;
-            border: 1px solid white;
-            padding: 10px;
-            cursor: pointer;
-        }
-
-        .services-menu button:hover {
-            background-color: #444;
-        }
-
-        /* Form styling */
-        .request-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        /* Request Form */
+        #requestForm {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             background-color: rgba(0, 0, 0, 0.8);
             padding: 20px;
             border-radius: 5px;
-            max-width: 300px;
-            margin: 20px;
+            display: none;
+            color: white;
+        }
+        
+        #requestForm input, #requestForm select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 5px;
         }
 
-        .request-form input, .request-form button {
+        #requestForm button {
+            width: 100%;
             padding: 10px;
+            background-color: #444;
+            border: none;
+            cursor: pointer;
+            color: white;
             font-size: 16px;
-            color: black;
+            border-radius: 5px;
+        }
+
+        #requestForm button:hover {
+            background-color: #666;
         }
     </style>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        // Initialize EmailJS with your public User ID
+        emailjs.init("jcCckN3GwK6onqcZW");
+
+        // Function to show the request form
+        function showRequestForm(service) {
+            document.getElementById('requestForm').style.display = 'block';
+            document.getElementById('requestForm').dataset.service = service; // Store selected service in the form
+        }
+
+        // Function to close the request form
+        function closeForm() {
+            document.getElementById('requestForm').style.display = 'none';
+        }
+
+        // Function to send the request via EmailJS
+        function sendRequest() {
+            const username = document.getElementById('discordUsername').value;
+            const service = document.getElementById('requestForm').dataset.service;
+
+            if (!username) {
+                alert("Please enter your Discord username.");
+                return;
+            }
+
+            const emailData = {
+                to_email: 'kiilmssteam@gmail.com',
+                from_name: username,  // Discord username
+                service_name: service,  // Service name (e.g., Max Level, Fruits, etc.)
+            };
+
+            // Send the email using the EmailJS API
+            emailjs.send('service_512scib', 'template_ii4rsp5', emailData)
+                .then((response) => {
+                    alert('Request sent successfully!');
+                    closeForm();  // Close the request form
+                })
+                .catch((error) => {
+                    alert('Error sending request. Please try again.');
+                    console.error('Error sending email:', error);
+                });
+        }
+    </script>
 </head>
 <body>
 
-<!-- Taskbar -->
-<div class="taskbar">
-    <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">Discord</button>
-    <button onclick="window.open('https://github.com/KiilmOfficial', '_blank')">Github</button>
-    <button onclick="window.open('https://www.youtube.com/@KiilmsYoutube', '_blank')">YouTube</button>
-</div>
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <!-- Discord -->
+        <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">Discord</button>
 
-<!-- Menu Button -->
-<button class="menu-button" onclick="toggleMenu()">Services</button>
+        <!-- Github -->
+        <button onclick="window.open('https://github.com/KiilmOfficial', '_blank')">Github</button>
 
-<!-- Services Menu -->
-<div class="services-menu" id="servicesMenu">
-    <button onclick="openForm('max-level')">Max Level</button>
-    <button onclick="openForm('fruits')">Fruits</button>
-    <button onclick="openForm('items')">Items</button>
-    <button onclick="openForm('bounty')">Bounty</button>
-</div>
+        <!-- YouTube -->
+        <button onclick="window.open('https://www.youtube.com/@KiilmsYoutube', '_blank')">YouTube</button>
+    </div>
 
-<!-- Request Form -->
-<div class="request-form" id="requestForm" style="display: none;">
-    <h3>Enter your Discord Username</h3>
-    <input type="text" id="discordUsername" placeholder="Discord Username" required>
-    <button onclick="sendRequest()">Send Request</button>
-    <button onclick="closeForm()">Cancel</button>
-</div>
+    <!-- Footer -->
+    <footer>
+        <p>© OfficialKiilm</p>
+    </footer>
 
-<!-- Footer -->
-<footer>
-    <p>© OfficialKiilm</p>
-</footer>
+    <!-- Request Form -->
+    <div id="requestForm">
+        <h3>Enter your Discord username to request a service</h3>
+        <input type="text" id="discordUsername" placeholder="Discord Username" required />
+        <button onclick="sendRequest()">Send Request</button>
+        <button onclick="closeForm()">Close</button>
+    </div>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-    // Initialize EmailJS with your User ID
-    emailjs.init("jcCckN3GwK6onqcZW")  // Your actual EmailJS User ID
-
-    // Toggle the visibility of the services menu
-    function toggleMenu() {
-        const menu = document.getElementById('servicesMenu');
-        menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'flex' : 'none';
-    }
-
-    // Open the request form for a specific service
-    function openForm(service) {
-        const form = document.getElementById('requestForm');
-        const usernameInput = document.getElementById('discordUsername');
-        usernameInput.value = '';  // Clear previous username
-
-        // Store the service choice in the form (can be used for email body)
-        form.dataset.service = service;
-
-        form.style.display = 'block';  // Show the form
-    }
-
-    // Close the request form
-    function closeForm() {
-        const form = document.getElementById('requestForm');
-        form.style.display = 'none';  // Hide the form
-    }
-
-    // Send the request via email
-    function sendRequest() {
-        const username = document.getElementById('discordUsername').value;
-        const service = document.getElementById('requestForm').dataset.service;
-
-        if (!username) {
-            alert("Please enter your Discord username.");
-            return;
-        }
-
-        // EmailJS send email
-        const emailData = {
-            to_email: 'kiilmssteam@gmail.com',
-            from_name: username,
-            service_name: service,
-        };
-
-        emailjs.send('service_512scib', 'template_ii4rsp5', emailData)  // Use your Service ID and Template ID
-            .then((response) => {
-                alert('Request sent successfully!');
-                closeForm();  // Close the form
-            })
-            .catch((error) => {
-                alert('Error sending request. Please try again.');
-                console.error('Error sending email:', error);
-            });
-    }
-</script>
+    <!-- Service Buttons -->
+    <button onclick="showRequestForm('Max Level')">Max Level</button>
+    <button onclick="showRequestForm('Fruits')">Fruits</button>
+    <button onclick="showRequestForm('Items')">Items</button>
+    <button onclick="showRequestForm('Bounty')">Bounty</button>
 
 </body>
 </html>
