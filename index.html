@@ -12,30 +12,24 @@
             height: 100vh;
             color: white;
             overflow: hidden;
-            background: linear-gradient(to right, #00008B, #87CEFA); /* Initial gradient */
-            animation: wave 10s ease-in-out infinite; /* Smoother wave animation */
+            background: linear-gradient(to top, #00008B, #87CEFA); /* Initial gradient */
+            animation: smooth-gradient 8s ease-in-out infinite; /* Smooth gradient animation */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
         }
 
-        /* Smoother gradient animation */
-        @keyframes wave {
+        /* Smooth Gradient Animation */
+        @keyframes smooth-gradient {
             0% {
-                background: linear-gradient(to right, #00008B, #87CEFA);
-            }
-            25% {
-                background: linear-gradient(to right, #00008B, #4682B4);
+                background: linear-gradient(to top, #00008B 50%, #87CEFA 50%);
             }
             50% {
-                background: linear-gradient(to right, #87CEFA, #4682B4);
-            }
-            75% {
-                background: linear-gradient(to right, #4682B4, #00008B);
+                background: linear-gradient(to top, #00008B 0%, #87CEFA 100%);
             }
             100% {
-                background: linear-gradient(to right, #00008B, #87CEFA);
+                background: linear-gradient(to top, #00008B 50%, #87CEFA 50%);
             }
         }
 
