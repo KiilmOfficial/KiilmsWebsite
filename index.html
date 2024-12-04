@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taskbar Example</title>
+    <title>Kiilm's Web</title>
     <style>
         body {
             margin: 0;
@@ -35,14 +35,7 @@
             cursor: pointer;
             color: white;
             padding: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .taskbar button img {
-            height: 30px;
-            width: 30px;
-            margin-right: 8px;
+            font-size: 16px;
         }
 
         .taskbar button:hover {
@@ -63,47 +56,130 @@
         footer {
             position: fixed;
             bottom: 0;
-            width: 100%;
-            text-align: center;
-            background-color: #333;
+            left: 0;
             padding: 10px;
             color: white;
+            background-color: #333;
+            width: 100%;
+            text-align: left;
+        }
+
+        /* Hamburger Menu Style */
+        .menu-btn {
+            display: none;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1100;
+            cursor: pointer;
+        }
+
+        .menu-btn div {
+            width: 35px;
+            height: 5px;
+            background-color: white;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        /* Side menu bar */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            transition: 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .side-menu a {
+            padding: 15px;
+            text-decoration: none;
+            font-size: 22px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .side-menu a:hover {
+            background-color: #575757;
+        }
+
+        /* Open menu */
+        .side-menu.open {
+            left: 0;
+        }
+
+        .menu-btn.open div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
+        }
+
+        .menu-btn.open div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-btn.open div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
+        }
+
+        /* For the menu button and side menu to work */
+        .content {
+            margin-left: 0;
         }
     </style>
 </head>
 <body>
 
+<!-- Hamburger Menu Button -->
+<div class="menu-btn" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+
+<!-- Side Menu -->
+<div id="sideMenu" class="side-menu">
+    <a href="https://discord.gg/cAZwd8UY" target="_blank">Discord</a>
+    <a href="https://www.fortnite.com" target="_blank">Fortnite</a>
+    <a href="https://www.leagueoflegends.com" target="_blank">League of Legends</a>
+</div>
+
 <!-- Taskbar -->
 <div class="taskbar">
     <!-- Discord -->
-    <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Discord_logo_2023.svg/2048px-Discord_logo_2023.svg.png" alt="Discord Logo">
-        Discord
-    </button>
+    <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">Discord</button>
 
     <!-- Game 1 (example) -->
-    <button onclick="window.open('https://www.fortnite.com', '_blank')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Fortnite_logo_2018.svg" alt="Fortnite Logo">
-        Fortnite
-    </button>
+    <button onclick="window.open('https://www.fortnite.com', '_blank')">Fortnite</button>
 
     <!-- Game 2 (example) -->
-    <button onclick="window.open('https://www.leagueoflegends.com', '_blank')">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/League_of_Legends_logo_2019.svg" alt="League of Legends Logo">
-        League of Legends
-    </button>
+    <button onclick="window.open('https://www.leagueoflegends.com', '_blank')">League of Legends</button>
 </div>
 
 <!-- Main Content -->
 <div class="content">
-    <h1>Welcome to the Taskbar Demo!</h1>
-    <p>Click the buttons on the taskbar to visit the respective websites.</p>
+    <h1>Welcome to Kiilm's Web!</h1>
+    <p>Have fun!</p>
 </div>
 
 <!-- Footer -->
 <footer>
     <p>© OfficialKiilm</p>
 </footer>
+
+<script>
+    // Function to toggle the side menu visibility
+    function toggleMenu() {
+        var menu = document.getElementById("sideMenu");
+        var menuBtn = document.querySelector(".menu-btn");
+
+        menu.classList.toggle("open");
+        menuBtn.classList.toggle("open");
+    }
+</script>
 
 </body>
 </html>
