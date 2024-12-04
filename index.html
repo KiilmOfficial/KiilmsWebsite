@@ -59,89 +59,6 @@
             width: 100%;
             text-align: left;
         }
-
-        /* Menu Button for Chatbox */
-        .menu-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #444;
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1100;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .menu-btn:hover {
-            background-color: #666;
-        }
-
-        /* Chatbox container */
-        .chatbox-container {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        /* Chatbox messages */
-        .chat-messages {
-            height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #444;
-            padding-right: 10px;
-        }
-
-        .chat-messages p {
-            margin: 5px 0;
-            padding: 5px;
-            background-color: #333;
-            border-radius: 5px;
-        }
-
-        /* Message input */
-        .message-input {
-            width: 100%;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .message-input::placeholder {
-            color: white;
-        }
-
-        /* Send button */
-        .send-btn {
-            background-color: #444;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .send-btn:hover {
-            background-color: #666;
-        }
     </style>
 </head>
 <body>
@@ -162,45 +79,6 @@
 <footer>
     <p>© OfficialKiilm</p>
 </footer>
-
-<!-- Menu Button for Chatbox -->
-<div class="menu-btn" onclick="toggleChatbox()">☰</div>
-
-<!-- Chatbox Container (Removed Chat Room) -->
-<div class="chatbox-container" id="chatbox">
-    <div class="chat-messages" id="messages">
-        <!-- Messages will appear here -->
-    </div>
-    <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="3"></textarea>
-    <button class="send-btn" onclick="sendMessage()">Send</button>
-</div>
-
-<script>
-    // Toggle the chatbox visibility
-    function toggleChatbox() {
-        var chatbox = document.getElementById('chatbox');
-        chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Send message and display it in the chat
-    function sendMessage() {
-        var messageInput = document.getElementById('messageInput');
-        var messageText = messageInput.value.trim();
-
-        if (messageText) {
-            var messageContainer = document.getElementById('messages');
-            var message = document.createElement('p');
-            message.textContent = messageText;
-            messageContainer.appendChild(message);
-
-            // Scroll to the bottom of the chat
-            messageContainer.scrollTop = messageContainer.scrollHeight;
-
-            // Clear the input field
-            messageInput.value = '';
-        }
-    }
-</script>
 
 </body>
 </html>
