@@ -12,19 +12,26 @@
             height: 100vh;
             color: white;
             overflow: hidden;
-            animation: gradient 10s ease infinite; /* Animate gradient change */
+            background: linear-gradient(to right, #00008B, #87CEFA); /* Initial gradient */
+            animation: wave 6s ease-in-out infinite; /* Smooth wave animation */
         }
 
-        /* Background gradient animation */
-        @keyframes gradient {
+        /* Wave-like gradient animation */
+        @keyframes wave {
             0% {
-                background: linear-gradient(to bottom, #00008B, #87CEFA); /* Dark blue to light blue */
+                background: linear-gradient(to right, #00008B, #87CEFA);
+            }
+            25% {
+                background: linear-gradient(to right, #00008B, #4682B4);
             }
             50% {
-                background: linear-gradient(to bottom, #87CEFA, #00008B); /* Light blue to dark blue */
+                background: linear-gradient(to right, #87CEFA, #4682B4);
+            }
+            75% {
+                background: linear-gradient(to right, #4682B4, #00008B);
             }
             100% {
-                background: linear-gradient(to bottom, #00008B, #87CEFA); /* Dark blue to light blue */
+                background: linear-gradient(to right, #00008B, #87CEFA);
             }
         }
 
