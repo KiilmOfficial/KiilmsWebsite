@@ -3,214 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiilm's Web</title>
+    <title>Kiilm's Web AI Bot</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            height: 100vh;
+            background-color: #282c34;
             color: white;
-            overflow: hidden;
-            background: url('https://media.giphy.com/media/l3q2RgN7WUjeUUXm0/giphy.gif') no-repeat center center fixed;
-            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
+            height: 100vh;
+            background: url('https://media.giphy.com/media/l3q2RgN7WUjeUUXm0/giphy.gif') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        /* Taskbar style */
-        .taskbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
+        h1 {
+            color: white;
+        }
+
+        #response-container {
+            margin-top: 20px;
+            padding: 20px;
             background-color: rgba(0, 0, 0, 0.7);
-            height: 50px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        /* Taskbar buttons */
-        .taskbar button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: white;
-            padding: 10px;
-            font-size: 16px;
-        }
-
-        .taskbar button:hover {
-            background-color: #444;
-        }
-
-        /* Footer style */
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            padding: 10px;
-            color: white;
-            background-color: #333;
-            width: 100%;
-            text-align: left;
-        }
-
-        /* Chatbox menu button style */
-        .menu-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #444;
-            color: white;
-            padding: 15px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1100;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-        }
-
-        .menu-btn:hover {
-            background-color: #666;
-        }
-
-        /* Chatbox container */
-        .chatbox-container {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 300px;
-            height: 400px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            overflow: hidden;
-        }
-
-        /* Chatbox messages */
-        .chat-messages {
+            width: 90%;
+            max-width: 600px;
             height: 300px;
-            overflow-y: scroll;
-            margin-bottom: 10px;
-            border-bottom: 1px solid #444;
-            padding-right: 10px;
+            overflow-y: auto;
+            color: white;
         }
 
-        .chat-messages p {
-            margin: 5px 0;
-            padding: 5px;
-            background-color: #333;
-            border-radius: 5px;
-        }
-
-        /* Message input */
-        .message-input {
+        #user-input {
             width: 100%;
             padding: 10px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border: 1px solid white;
-            color: white;
-            border-radius: 5px;
             font-size: 16px;
-            resize: none;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
-        .message-input::placeholder {
+        #submit-btn {
+            margin-top: 10px;
+            padding: 10px;
+            border: none;
+            background-color: #444;
             color: white;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+        #submit-btn:hover {
+            background-color: #555;
+        }
+
     </style>
 </head>
 <body>
 
-<!-- Taskbar -->
-<div class="taskbar">
-    <!-- Discord -->
-    <button onclick="window.open('https://discord.gg/cAZwd8UY', '_blank')">Discord</button>
+    <h1>Ask the AI Anything!</h1>
 
-    <!-- Github -->
-    <button onclick="window.open('https://github.com/KiilmOfficial', '_blank')">Github</button>
+    <input type="text" id="user-input" placeholder="Ask me a question..." />
+    <button id="submit-btn">Submit</button>
 
-    <!-- YouTube -->
-    <button onclick="window.open('https://www.youtube.com/@KiilmsYoutube', '_blank')">YouTube</button>
-</div>
-
-<!-- Footer -->
-<footer>
-    <p>© OfficialKiilm</p>
-</footer>
-
-<!-- Menu Button for Chatbox -->
-<div class="menu-btn" onclick="toggleChatbox()">☰</div>
-
-<!-- Chatbox Container -->
-<div class="chatbox-container" id="chatbox">
-    <div class="chat-messages" id="messages">
-        <!-- Messages will appear here -->
+    <div id="response-container">
+        <!-- Responses will appear here -->
     </div>
-    <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="3" onkeydown="handleKeyPress(event)"></textarea>
-</div>
 
-<script>
-    // Toggle the chatbox visibility
-    function toggleChatbox() {
-        var chatbox = document.getElementById('chatbox');
-        chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
-        loadMessages(); // Load messages when the chatbox opens
-    }
+    <script>
+        const submitButton = document.getElementById('submit-btn');
+        const userInput = document.getElementById('user-input');
+        const responseContainer = document.getElementById('response-container');
 
-    // Handle key press for sending messages
-    function handleKeyPress(event) {
-        var messageInput = document.getElementById('messageInput');
-        if (event.key === "Enter" && !event.shiftKey) {
-            event.preventDefault(); // Prevent the newline behavior when Enter is pressed
-            sendMessage(messageInput.value.trim());
-            messageInput.value = ''; // Clear the input field after sending
-        } else if (event.key === "Tab") {
-            // Allow the Tab key to go to the next line
-            event.preventDefault();
-            var cursorPos = messageInput.selectionStart;
-            messageInput.value = messageInput.value.substring(0, cursorPos) + "\t" + messageInput.value.substring(cursorPos);
-            messageInput.selectionStart = messageInput.selectionEnd = cursorPos + 1;
-        }
-    }
+        // Function to send the user's question and display the AI response
+        submitButton.onclick = async () => {
+            const question = userInput.value;
+            if (question.trim() === '') {
+                return;
+            }
+            // Clear the input box
+            userInput.value = '';
+            
+            // Display the user's question
+            responseContainer.innerHTML += `<p><strong>You:</strong> ${question}</p>`;
 
-    // Send message and display it in the chat
-    function sendMessage(messageText) {
-        if (messageText) {
-            // Save the message to localStorage (simulating a global chat)
-            var messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
-            messages.push(messageText);
-            localStorage.setItem('chatMessages', JSON.stringify(messages));
+            // Get the AI response
+            const response = await fetch('/api/get-ai-response', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question }),
+            });
 
-            loadMessages(); // Reload the messages after sending
-        }
-    }
+            const data = await response.json();
+            const aiResponse = data.answer;
 
-    // Load messages from localStorage and display them
-    function loadMessages() {
-        var messagesContainer = document.getElementById('messages');
-        messagesContainer.innerHTML = ''; // Clear current messages
-        var messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
-        messages.forEach(function(message) {
-            var messageElement = document.createElement('p');
-            messageElement.textContent = message;
-            messagesContainer.appendChild(messageElement);
-        });
-        messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the bottom
-    }
+            // Display the AI response
+            responseContainer.innerHTML += `<p><strong>AI:</strong> ${aiResponse}</p>`;
 
-    // Load messages when the page is loaded
-    window.onload = loadMessages;
-</script>
+            // Scroll to the bottom
+            responseContainer.scrollTop = responseContainer.scrollHeight;
+        };
+    </script>
 
 </body>
 </html>
