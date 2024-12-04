@@ -93,6 +93,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             z-index: 1000;
+            overflow: hidden;
         }
 
         /* Chatbox messages */
@@ -120,27 +121,11 @@
             color: white;
             border-radius: 5px;
             font-size: 16px;
+            resize: none;
         }
 
         .message-input::placeholder {
             color: white;
-        }
-
-        /* Send button */
-        .send-btn {
-            background-color: #444;
-            color: white;
-            border: none;
-            padding: 10px;
-            font-size: 16px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-        }
-
-        .send-btn:hover {
-            background-color: #666;
         }
     </style>
 </head>
@@ -171,8 +156,7 @@
     <div class="chat-messages" id="messages">
         <!-- Messages will appear here -->
     </div>
-    <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="3"></textarea>
-    <button class="send-btn" onclick="sendMessage()">Send</button>
+    <textarea id="messageInput" class="message-input" placeholder="Type your message..." rows="3" onkeydown="handleKeyPress(event)"></textarea>
 </div>
 
 <script>
@@ -180,26 +164,52 @@
     function toggleChatbox() {
         var chatbox = document.getElementById('chatbox');
         chatbox.style.display = chatbox.style.display === 'block' ? 'none' : 'block';
+        loadMessages(); // Load messages when the chatbox opens
+    }
+
+    // Handle key press for sending messages
+    function handleKeyPress(event) {
+        var messageInput = document.getElementById('messageInput');
+        if (event.key === "Enter" && !event.shiftKey) {
+            event.preventDefault(); // Prevent the newline behavior when Enter is pressed
+            sendMessage(messageInput.value.trim());
+            messageInput.value = ''; // Clear the input field after sending
+        } else if (event.key === "Tab") {
+            // Allow the Tab key to go to the next line
+            event.preventDefault();
+            var cursorPos = messageInput.selectionStart;
+            messageInput.value = messageInput.value.substring(0, cursorPos) + "\t" + messageInput.value.substring(cursorPos);
+            messageInput.selectionStart = messageInput.selectionEnd = cursorPos + 1;
+        }
     }
 
     // Send message and display it in the chat
-    function sendMessage() {
-        var messageInput = document.getElementById('messageInput');
-        var messageText = messageInput.value.trim();
-
+    function sendMessage(messageText) {
         if (messageText) {
-            var messageContainer = document.getElementById('messages');
-            var message = document.createElement('p');
-            message.textContent = messageText;
-            messageContainer.appendChild(message);
+            // Save the message to localStorage (simulating a global chat)
+            var messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+            messages.push(messageText);
+            localStorage.setItem('chatMessages', JSON.stringify(messages));
 
-            // Scroll to the bottom of the chat
-            messageContainer.scrollTop = messageContainer.scrollHeight;
-
-            // Clear the input field
-            messageInput.value = '';
+            loadMessages(); // Reload the messages after sending
         }
     }
+
+    // Load messages from localStorage and display them
+    function loadMessages() {
+        var messagesContainer = document.getElementById('messages');
+        messagesContainer.innerHTML = ''; // Clear current messages
+        var messages = JSON.parse(localStorage.getItem('chatMessages') || '[]');
+        messages.forEach(function(message) {
+            var messageElement = document.createElement('p');
+            messageElement.textContent = message;
+            messagesContainer.appendChild(messageElement);
+        });
+        messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to the bottom
+    }
+
+    // Load messages when the page is loaded
+    window.onload = loadMessages;
 </script>
 
 </body>
