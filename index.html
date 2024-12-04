@@ -131,14 +131,17 @@
             };
 
             // Send the email using the EmailJS API
-            emailjs.send('service_512scib', 'template_ii4rsp5', emailData)
+            emailjs.send('service_512scib', 'KiilmsTemplate', emailData) // Updated template ID here
                 .then((response) => {
                     alert('Request sent successfully!');
                     closeForm();  // Close the request form
                 })
                 .catch((error) => {
+                    // Detailed error handling for debugging
                     alert('Error sending request. Please try again.');
                     console.error('Error sending email:', error);
+                    console.log('Error details:', error.text);  // Log the detailed error message
+                    console.log('Status:', error.status);  // Log the HTTP status code
                 });
         }
     </script>
