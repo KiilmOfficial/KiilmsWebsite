@@ -151,8 +151,8 @@
 
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
-    // Initialize EmailJS
-    emailjs.init("user_xxxxxxxx");  // Use your EmailJS user ID here
+    // Initialize EmailJS with your User ID
+    emailjs.init("jcCckN3GwK6onqcZW")  // Your actual EmailJS User ID
 
     // Toggle the visibility of the services menu
     function toggleMenu() {
@@ -195,7 +195,7 @@
             service_name: service,
         };
 
-        emailjs.send('service_xxxxxxx', 'template_xxxxxxx', emailData)
+        emailjs.send('service_512scib', 'template_ii4rsp5', emailData)  // Use your Service ID and Template ID
             .then((response) => {
                 alert('Request sent successfully!');
                 closeForm();  // Close the form
