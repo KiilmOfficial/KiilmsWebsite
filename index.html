@@ -60,42 +60,12 @@
             text-align: left;
         }
 
-        /* Request Form */
-        #requestForm {
-            position: absolute;
-            top: 30%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 20px;
-            border-radius: 5px;
-            display: none;
+        /* Request message */
+        .request-message {
+            font-weight: bold;
+            font-size: 20px;
+            text-align: center;
             color: white;
-        }
-        
-        #requestForm input, #requestForm select {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: white;
-            border-radius: 5px;
-        }
-
-        #requestForm button {
-            width: 100%;
-            padding: 10px;
-            background-color: #444;
-            border: none;
-            cursor: pointer;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-        }
-
-        #requestForm button:hover {
-            background-color: #666;
         }
     </style>
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
@@ -165,19 +135,10 @@
         <p>© OfficialKiilm</p>
     </footer>
 
-    <!-- Request Form -->
-    <div id="requestForm">
-        <h3>Enter your Discord username to request a service</h3>
-        <input type="text" id="discordUsername" placeholder="Discord Username" required />
-        <button onclick="sendRequest()">Send Request</button>
-        <button onclick="closeForm()">Close</button>
+    <!-- Request Message -->
+    <div class="request-message">
+        IF YOU WANT TO SEND A REQUEST FOR A ROBLOX ACCOUNT JOIN THE DISCORD SERVER AND DO !REQUEST THEN WHAT YOU WANT
     </div>
-
-    <!-- Service Buttons -->
-    <button onclick="showRequestForm('Max Level')">Max Level</button>
-    <button onclick="showRequestForm('Fruits')">Fruits</button>
-    <button onclick="showRequestForm('Items')">Items</button>
-    <button onclick="showRequestForm('Bounty')">Bounty</button>
 
 </body>
 </html>
